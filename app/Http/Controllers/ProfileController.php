@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Friendship;
 
 
 class ProfileController extends Controller
@@ -26,5 +27,59 @@ class ProfileController extends Controller
 
     	DB::table('users')->where('id', $user_id)->update(['picture' => $filename]);
     	return redirect('profile/index');
+    }
+
+    public function editProfileForm() {
+    	return view('profile.editProfile');
+    }
+
+    public function findFriends() {
+    	$uid = Auth::user()->id;
+    	$allUsers = DB::table('profiles')->leftJoin('users', 'users.id', '=', 'profiles.user_id')->where('users.id', '!=', $uid)->get();
+
+    	return view('profile.findFriends', compact('allUsers'));
+    }
+
+    public function sendRequest($id) {
+    	
+    	// Friendable - create function
+    	Auth::user()->addFriend($id); 
+    	return back(); 
+    }
+
+    public function requests() {
+    	$uid = Auth::user()->id;
+
+    	$friendRequests = DB::table('friendships')
+    		->rightJoin('users', 'friendships.requester', '=', 'users.id')
+    		->where('status', 0) // if status 0 than I have requested else 1 for I accept
+    		->where('friendships.user_requested', '=', $uid)->get();
+
+    	return view('profile.requests', compact('friendRequests'));
+    }
+
+    public function accept($name, $id)
+    {
+    	$uid = Auth::user()->id;
+    	$checkRequest = Friendship::where('requester', $id)
+    			->where('user_requested', $uid)
+    			->first();
+    	if($checkRequest)
+    	{
+    		//echo "yes, update here";
+    		// update table
+    		$updateFriendship = DB::table('friendships')->where('user_requested', $uid)
+    			->where('requester', $id)
+    			->update(['status' => 1]);
+    		//dd($updateFriendship);
+    		if ($updateFriendship) {
+    			return back()->with('msg', 'You are now Friend with this ' . $name);
+    		}
+    	}
+    	else
+    	{
+    		return back()->with('msg', 'Something is wrong');
+    	}
+
     }
 }

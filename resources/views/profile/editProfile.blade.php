@@ -2,29 +2,34 @@
 
 @section('content')
 <div class="container">
+    <ol class="breadcrumb">
+      <li><a href="{{url('/')}}">Home</a></li>
+      <li><a href="{{url('/profile')}}/{{Auth::user()->slug}}">Profile</a></li>
+      <li><a href="#">Edit Profile</a></li>
+    </ol>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        @include('profile.sidebar');
+
+        <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-heading">{{ucwords(Auth::user()->name)}}</div>
 
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
+                    <div class="col-sm-6 col-md-12">
+                       <div class="thumbnail">
+                         <img src="../img/{{Auth::user()->picture}}"  height="100px" width="100px"/><br><br>
+                         <div class="caption">
+                           <h3>{{ucwords(Auth::user()->name)}}</h3>
+                           <p align="center"></p>
+                           <p align="center"><a href="{{url('/editProfile')}}" class="btn btn-primary" role="button">Edit Profile</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                         </div>
-                    @endif
-
-                    <h4>Edit your Profile</h2><br>
-
-                    <img src="../img/{{Auth::user()->picture}}"  height="100px" width="100px"/><br><br>
-
-                    <a href="/changePhoto">Change Image</a>
-                    <hr>
-
-                    <input type="text" name="city" class="form-control" value="{{Auth::user()->city}}"/>
-
+                    </div>
                 </div>
-            </div>
+
+
+        <div class="col-sm-6 col-md-4">
+            <span class="label label-default">Update Profile</span>
+            <br>
         </div>
     </div>
 </div>

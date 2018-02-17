@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 <body>
     <div id="app">
@@ -38,6 +39,8 @@
                     <ul class="nav navbar-nav">
                         @if (Route::has('login'))
                             <li><a href="{{ url('/profile')}}">Profile</a></li>
+                            <li><a href="{{ url('/findFriends')}}">Find Friends</a></li>
+                            <li><a href="{{ url('/requests')}}">My Requests <span class="badge"> {{App\Friendship::where('status', 0)->where('user_requested', Auth::user()->id)->count()}} </span></a></li>
                         @endif
                     </ul>
 

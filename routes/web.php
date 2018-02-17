@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function () {
+    return Auth::user()->test();
+});
+
+
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function() {
@@ -30,9 +35,15 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::post('/uploadPhoto', 'ProfileController@uploadPhoto');
 	
-	Route::get('editProfile', function () {
-	    return view('profile.editProfile');
-	});
+	Route::get('/findFriends', 'ProfileController@findFriends');
+
+	Route::get('editProfile', 'ProfileController@editProfileForm');
+
+	Route::get('/addFriend/{id}', 'ProfileController@sendRequest');
+
+	Route::get('/requests', 'ProfileController@requests');
+
+	Route::get('/accept/{name}/{id}', 'ProfileController@accept');
 
 	Route::get('/messages2', function () {
 	    return view('messages.messages2');
