@@ -64,6 +64,8 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('/requestRemove/{id}', 'ProfileController@requestRemove');
 
+	Route::get('/notifications/{id}', 'ProfileController@notifications');
+
 	Route::get('/messages2', function () {
 	    return view('messages.messages2');
 	});

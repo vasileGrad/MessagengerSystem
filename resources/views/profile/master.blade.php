@@ -38,17 +38,15 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         @if (Route::has('login'))
-                            <li><a href="{{ url('/profile')}}">Profile</a></li>
                             <li><a href="{{ url('/findFriends')}}">Find Friends</a></li>
                             <li><a href="{{ url('/requests')}}">My Requests <span class="badge"> {{App\Friendship::where('status', 0)->where('user_requested', Auth::user()->id)->count()}} </span></a></li>
-                            <li><a href="{{ url('/friends')}}">Friends</a></li>
                         @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        @guest
+                        @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
@@ -63,9 +61,8 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ url('editProfile') }}">Edit Profile</a>
-                                    </li>
+                                    <li><a href="{{ url('/profile') }}">Profile</a></li>
+                                    <li><a href="{{ url('editProfile') }}">Edit Profile</a></li>
 
                                     <li>
                                         <a href="{{ route('logout') }}"
@@ -80,7 +77,36 @@
                                     </li>
                                 </ul>
                             </li>
-                        @endguest
+
+                            <li>
+                                <a href="{{ url('/friends')}}"><i class="fa fa-users fa-2x" aria-hidden="true"></i></a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
+                                    <span class="badge" style="background:red; position: relative; top: -10px; left:-10px">
+                                        {{App\Notification::where('status', 1)  ->where('user_hero', Auth::user()->id)->count()}}
+                                    </span>
+                                </a>
+
+                                <?php 
+                                $notes = DB::table('users') 
+                                        ->leftJoin('notifications', 'users.id', 'notifications.user_logged') 
+                                        ->where('user_hero', Auth::user()->id)
+                                        ->where('status', 1)  // unread notification
+                                        ->orderBy('notifications.created_at', 'desc')
+                                        ->get();
+                                //dd($notes);
+                                ?>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    @foreach($notes as $note)
+                                        <li><a href="{{url('/notifications')}}/{{$note->id}}"><b style="color:green">{{ucwords($note->name)}}</b> {{$note->note}}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
