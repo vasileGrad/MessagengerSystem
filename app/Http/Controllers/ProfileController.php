@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Friendship;
+use App\Notification;
 
 
 class ProfileController extends Controller
@@ -60,6 +61,8 @@ class ProfileController extends Controller
 
     public function accept($name, $id)
     {
+    	/*echo $id;
+    	die();*/
     	$uid = Auth::user()->id;
     	$checkRequest = Friendship::where('requester', $id)
     			->where('user_requested', $uid)
@@ -72,7 +75,18 @@ class ProfileController extends Controller
     			->where('requester', $id)
     			->update(['status' => 1]);
     		//dd($updateFriendship);
-    		if ($updateFriendship) {
+
+
+			// adding into the table notifications
+			$notifications = new Notification;
+			$notifications->user_hero = $id;  // the id of the person accepted
+			$notifications->user_logged = Auth::user()->id;  // who is accepting my request
+			$notifications->status = '1';  // unread notifications
+			$notifications->note = 'acceted you friend request';
+			$notifications->save();
+
+
+    		if ($notifications) {
     			return back()->with('msg', 'You are now Friend with this ' . $name);
     		}
     	}
@@ -83,7 +97,7 @@ class ProfileController extends Controller
     }
 
     public function friends() {
-    	//echo $uid = Auth::user()->id;
+        $uid = Auth::user()->id;
 
 		// who send me request
     	$friends1 = DB::table('friendships') 

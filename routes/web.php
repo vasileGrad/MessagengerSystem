@@ -11,6 +11,21 @@
 |
 */
 
+Route::get('/test1', function () {
+    $noti = DB::table('notifications')	
+    	->where('user_logged', Auth::user()->id)
+    	->get();
+    dd($noti);
+});
+
+Route::get('/test1count', function () {
+    $count = App\Notification::where('status', 1)  // unread
+    	->where('user_hero', Auth::user()->id)
+    	->count();
+
+    dd($count);
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
