@@ -41,6 +41,7 @@
                             <li><a href="{{ url('/profile')}}">Profile</a></li>
                             <li><a href="{{ url('/findFriends')}}">Find Friends</a></li>
                             <li><a href="{{ url('/requests')}}">My Requests <span class="badge"> {{App\Friendship::where('status', 0)->where('user_requested', Auth::user()->id)->count()}} </span></a></li>
+                            <li><a href="{{ url('/friends')}}">Friends</a></li>
                         @endif
                     </ul>
 

@@ -17,14 +17,14 @@
 
         <div class="col-md-9">
             <div class="panel panel-default">
-                <div class="panel-heading">{{Auth::user()->name}}</div>
+                <div class="panel-heading">{{ucwords(Auth::user()->name)}}'s Friends</div>
 
                 <div class="panel-body">
                     <div class="col-sm-12 col-md-12">
                         @if ( session()->has('msg') )
                             <p class="alert alert-success">{{ session()->get('msg')}}</p>
                         @endif
-                        @foreach($friendRequests as $uList)
+                        @foreach($friends as $uList)
                             <div class="row" style="border-bottom:1px solid #ccc; margin-bottom:15px">
                                 <div class="col-md-2 pull-left">
                                     <a href=""><img src="../img/{{$uList->picture}}" style="height:80px; width:80px" class="img-rounded"/><br><br>
@@ -44,8 +44,7 @@
                                         <p>{{ session()->get('msg')}}</p>
                                     @else --}}
                                         <p>
-                                            <a href="{{url('/accept')}}/{{ucwords($uList->name)}}/{{$uList->id}}" class="btn btn-info btn-sm">Confirm</a>
-                                            <a href="{{url('/requestRemove')}}/{{$uList->id}}" class="btn btn-default btn-sm">Remove</a></p>
+                                            <a href="#" class="btn btn-default btn-sm">UnFriend</a></p>
                                     {{-- @endif --}}
                                 </div>
                             </div>
