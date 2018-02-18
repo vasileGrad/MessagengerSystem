@@ -17,7 +17,7 @@
 
         <div class="col-md-9">
             <div class="panel panel-default">
-                <div class="panel-heading">{{Auth::user()->name}}</div>
+                <div class="panel-heading">{{ucwords(Auth::user()->name)}}</div>
 
                 <div class="panel-body">
                     <div class="col-sm-12 col-md-12">

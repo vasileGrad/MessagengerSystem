@@ -29,7 +29,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{url('/profile/')}}/{{Auth::user()->slug}}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -51,7 +51,7 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li><a href="">
-                                    <img src="../img/{{Auth::user()->picture}}" style="border-radius: 50%" height="40px" width="40px"/><br><br>
+                                    <img src="/img/{{Auth::user()->picture}}" style="border-radius: 50%" height="40px" width="40px"/><br><br>
                                 </a>
                             </li>
 
@@ -61,7 +61,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{ url('/profile') }}">Profile</a></li>
+                                    <li><a href="{{ url('/profile/') }}/{{Auth::user()->slug}}">Profile</a></li>
                                     <li><a href="{{ url('editProfile') }}">Edit Profile</a></li>
 
                                     <li>
@@ -102,7 +102,18 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     @foreach($notes as $note)
-                                        <li><a href="{{url('/notifications')}}/{{$note->id}}"><b style="color:green">{{ucwords($note->name)}}</b> {{$note->note}}</a></li>
+                                        <a href="{{url('/notifications')}}/{{$note->id}}">
+                                          <li>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <img src="../img/{{$note->picture}}" style="width:40px; margin:5px" class="img-circle">
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <b style="color:green">{{ucwords($note->name)}}</b> <span style="color:#000">{{$note->note}}</span>
+                                                </div>
+                                            </div>
+                                          </li>
+                                        </a>
                                     @endforeach
                                 </ul>
                             </li>

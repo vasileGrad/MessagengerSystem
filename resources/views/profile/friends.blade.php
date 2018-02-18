@@ -32,7 +32,7 @@
                                 </div>
 
                                 <div class="col-md-7 pull-left">
-                                    <h3 style="margin:0px;"><a href="{{url('/profile')}}/{{$uList->slug}}">
+                                    <h3 style="margin:0px"><a href="{{url('/profile')}}/{{$uList->slug}}">
                                       {{ucwords($uList->name)}}</a></h3>
                                     
                                     <p><b>Gender:</b> {{$uList->gender}}</p>
@@ -44,7 +44,7 @@
                                         <p>{{ session()->get('msg')}}</p>
                                     @else --}}
                                         <p>
-                                            <a href="#" class="btn btn-default btn-sm">UnFriend</a></p>
+                                            <a href="{{url('/unfriend')}}/{{$uList->id}}" class="btn btn-default btn-sm">UnFriend</a></p>
                                     {{-- @endif --}}
                                 </div>
                             </div>

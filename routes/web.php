@@ -27,7 +27,12 @@ Route::get('/test1count', function () {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+	$posts = DB::table('posts')
+		->leftJoin('profiles', 'profiles.user_id', 'posts.user_id')
+		->leftJoin('users', 'users.id', 'posts.user_id')
+		->get();
+
+    return view('welcome', compact('posts'));
 });
 
 Route::get('/test', function () {
@@ -65,11 +70,26 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/requestRemove/{id}', 'ProfileController@requestRemove');
 
 	Route::get('/notifications/{id}', 'ProfileController@notifications');
+	
+	Route::get('/unfriend/{id}', function ($id) {
+
+	    $loggedUser = Auth::user()->id;
+
+	    DB::table('friendships')
+	    ->where('requester', $id)
+	    ->where('user_requested', $loggedUser)
+	    ->delete();
+
+	    return back()->with('msg', 'You are not friend with this person');
+	});
 
 	Route::get('/messages2', function () {
 	    return view('messages.messages2');
 	});
 });
+
+
+Route::get('posts', 'HomeController@index');
 
 Route::get('logout', 'Auth\LoginController@logout');
 

@@ -13,7 +13,14 @@ class ProfileController extends Controller
 {
     public function index($slug) {
 
-    	return view('profile.index');
+    	$userData = DB::table('users')
+    		->leftJoin('profiles', 'profiles.user_id', 'users.id')
+    		->where('slug', $slug)
+    		->get();
+
+    	//dd($userData);
+
+    	return view('profile.index', compact('userData'))->with('data', Auth::user()->profile);
     }
 
     public function uploadPhoto(Request $request) {
@@ -145,7 +152,7 @@ class ProfileController extends Controller
 
         $updateNotifications = DB::table('notifications')
 			->where('notifications.id', $id)
-			->update(['status' => 0, 'note' => 'nothing']);
+			->update(['status' => 0]);
 
 	    return view('profile.notifications', compact('notes'));
     }

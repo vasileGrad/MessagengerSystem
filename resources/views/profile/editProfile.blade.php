@@ -8,7 +8,7 @@
       <li><a href="#">Edit Profile</a></li>
     </ol>
     <div class="row">
-        @include('profile.sidebar');
+        @include('profile.sidebar')
 
         <div class="col-md-9">
             <div class="panel panel-default">
@@ -17,11 +17,11 @@
                 <div class="panel-body">
                     <div class="col-sm-6 col-md-12">
                        <div class="thumbnail">
-                         <img src="../img/{{Auth::user()->picture}}"  height="100px" width="100px"/><br><br>
+                         <h3 align="center">{{ucwords(Auth::user()->name)}}</h3>
+                         <img src="../img/{{Auth::user()->picture}}" style="border-radius: 50%; height:120px; width:120px;"/><br><br>
                          <div class="caption">
-                           <h3>{{ucwords(Auth::user()->name)}}</h3>
                            <p align="center"></p>
-                           <p align="center"><a href="{{url('/editProfile')}}" class="btn btn-primary" role="button">Edit Profile</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                           <p align="center"><a href="{{url('/editProfile')}}" class="btn btn-primary" role="button">Edit Profile</a>
                         </div>
                     </div>
                 </div>

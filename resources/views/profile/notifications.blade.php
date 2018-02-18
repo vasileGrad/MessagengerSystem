@@ -27,7 +27,7 @@
                         @foreach($notes as $note)
                             <div class="row" style="border-bottom:1px solid #ccc; margin-bottom:15px">
                                 <ul>
-                                    <li><p><a href="#" style="font-weight: bold; color:green"> {{ucwords($note->name)}}</a> {{$note->note}}</p></li>
+                                    <li><p><a href="{{url('/profile')}}/{{$note->slug}}" style="font-weight: bold; color:green"> {{ucwords($note->name)}}</a> {{$note->note}}</p></li>
                                 </ul>
                             </div>
                         @endforeach
