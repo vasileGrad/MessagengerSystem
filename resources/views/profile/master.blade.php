@@ -29,7 +29,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{url('/profile/')}}/{{Auth::user()->slug}}">
+                    <a class="navbar-brand" href="{{url('/')}}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -103,13 +103,20 @@
                                 <ul class="dropdown-menu" role="menu">
                                     @foreach($notes as $note)
                                         <a href="{{url('/notifications')}}/{{$note->id}}">
-                                          <li>
+                                        @if($note->status == 1)
+                                            <li style="background-color:#E4E9F2; padding:10px">
+                                        @else
+                                            <li style="padding:10px">
+                                        @endif
                                             <div class="row">
                                                 <div class="col-md-2">
-                                                    <img src="../img/{{$note->picture}}" style="width:40px; margin:5px" class="img-circle">
+                                                    <img src="/img/{{$note->picture}}" style="width:50px; padding:5px; background:#fff; border:1px solid #eee" class="img-rounded">
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <b style="color:green">{{ucwords($note->name)}}</b> <span style="color:#000">{{$note->note}}</span>
+                                                    <b style="color:green; font-size:90%">{{ucwords($note->name)}}</b> <span style="color:#000; font-size:90%">{{$note->note}}</span><br>
+                                                    <small style="color:#90949C">
+                                                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                                        {{ date('F j, Y', strtotime($note->created_at))}} at {{ date('H: i', strtotime($note->created_at))}}</small>
                                                 </div>
                                             </div>
                                           </li>

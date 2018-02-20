@@ -12,6 +12,7 @@
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
         <!-- Styles -->
         <style>
             html, body {
@@ -78,22 +79,33 @@
                     @endauth
                 </div>
             @endif
-        <div class="container">
+                
+            <div class="container"><br>
+                {{-- <div id="app">
+                    <h1>@{{msg}} <small style="color:green">@{{content}}</small></h1>
+                    <form method="post" enctype="multipart/form-data" v-on:submit.prevent="addPost"><br>
+                      <textarea class="form-control" v-model="content"></textarea><br>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                    @{{postss}}
+                </div><br> --}}
 
-        @foreach($posts as $post)
-            <div class="col-md-12" style="background-color:#fff">
-                <div class="col-md-2 pull-left">
-                    <img src="../img/{{$post->picture}}" style="width:100px; margin:10px">
-                </div>
-                <div class="col-md-10">
-                    <h3>{{ucwords($post->name)}}</h3>
-                    <p><i class="fa fa-globe"></i> {{$post->city}} - {{$post->country}}</p>
-                </div>
-                <p class="col-md-12" style="color:#333">{{$post->content}}</p>
+                @foreach($posts as $post)
+                    <div class="col-md-12" style="background-color:#fff">
+                        <div class="col-md-2 pull-left">
+                            <img src="../img/{{$post->picture}}" style="width:100px; margin:10px">
+                        </div>
+                        <div class="col-md-10">
+                            <h3>{{ucwords($post->name)}}</h3>
+                            <p><i class="fa fa-globe"></i> {{$post->city}} - {{$post->country}}</p>
+                        </div>
+                        <p class="col-md-12" style="color:#333">{{$post->content}}</p><hr>
+                    </div>
+                @endforeach
             </div>
-        @endforeach
-        </div>
-            
         </div>
     </body>
 </html>
+
+<!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>

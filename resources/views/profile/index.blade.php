@@ -33,7 +33,7 @@
                      </div>
 
                    <div class="col-sm-6 col-md-4">
-                        <h4 class=""><span class="label label-default">About</span></h4>
+                        <h4><span class="label label-default">About</span></h4>
                         <p>{{$uData->about}}</p>
                    </div>
                   </div>

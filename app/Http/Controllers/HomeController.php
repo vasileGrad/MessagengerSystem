@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $posts = DB::table('posts')
+            ->leftJoin('profiles', 'profiles.user_id', 'posts.user_id')
+            ->leftJoin('users', 'posts.user_id', 'users.id')
+            ->orderBy('posts.created_at', 'desc')->take(3)
+            ->get();
+
+    return view('home', compact('posts'));
     }
 }
