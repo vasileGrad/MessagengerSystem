@@ -31830,6 +31830,21 @@ var app = new Vue({
         posts: []
     },
 
+    ready: function ready() {
+        this.created();
+    },
+    created: function created() {
+        var _this = this;
+
+        axios.get('posts').then(function (response) {
+            console.log(response);
+            //alert(response);
+            _this.posts = response.data; // we are putting data into our post array
+        }).catch(function () {
+            console.log('FAILURE!!');
+        });
+    },
+
     methods: {
         addPost: function addPost() {
             axios.post('addPost', {

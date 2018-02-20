@@ -21,6 +21,20 @@ const app = new Vue({
         posts: [],
     }, 
 
+    ready: function() {
+        this.created();
+    },
+    created(){
+        axios.get('posts') 
+            .then(response => {
+              console.log(response);
+              //alert(response);
+              this.posts = response.data; // we are putting data into our post array
+            })
+            .catch(function(){
+              console.log('FAILURE!!');
+        });
+    },
     methods:{
         addPost(){
             axios.post('addPost', {
