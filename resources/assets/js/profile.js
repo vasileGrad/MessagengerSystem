@@ -20,8 +20,8 @@ const app = new Vue({
     content: '',
     privateMsgs: [],
     singleMsgs: [],
-    msgFrom: ''/*,
-    conID: '',
+    msgFrom: '',
+    conID: ''/*,,
     friend_id: '',
     seen: false,
     newMsgFrom: ''
@@ -53,7 +53,7 @@ const app = new Vue({
           .then(response => {
             console.log(response.data); // show if success
            app.singleMsgs = response.data; //we are putting data into our posts array
-           //app.conID = response.data[0].conversation_id
+           app.conID = response.data[0].conversation_id
           })
           .catch(function (error) {
             console.log(error); // run if we have error
@@ -69,22 +69,22 @@ const app = new Vue({
    },
    sendMsg(){
      if(this.msgFrom){
-      alert('form submit');
-       /*axios.post('sendMessage', {
-              conID: this.conID,
-              msg: this.msgFrom
-            })
-            .then( (response) => {              
-              console.log(response.data); // show if success
-              if(response.status===200){
-                app.singleMsgs = response.data;
-              }
+      /*alert(this.conID);
+      alert(this.msgFrom);*/
+       axios.post('sendMessage', {
+          conID: this.conID,
+          msg: this.msgFrom
+        })
+        .then( (response) => {              
+          console.log(response.data); // show if success
+          /*if(response.status===200){
+            app.singleMsgs = response.data;
+          }*/
+        })
+        .catch(function (error) {
+          console.log(error); // run if we have error
+        });
 
-            })
-            .catch(function (error) {
-              console.log(error); // run if we have error
-            });
-*/
      }
    },
 

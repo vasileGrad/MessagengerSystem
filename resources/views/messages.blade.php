@@ -45,6 +45,8 @@
 
             </div>
     		<hr>
+
+            <input type="text" v-model="conID">
             <textarea class="col-md-12 form-control" v-model="msgFrom" @keydown="inputHandler" style="margin-top:15px; border:none"></textarea>
     	</div>
 

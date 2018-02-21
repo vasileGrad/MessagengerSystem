@@ -168,4 +168,8 @@ class ProfileController extends Controller
 
         return back()->with('msg', 'You are not friend with this person');
     }
+
+    public function sendMessage(Request $request) {
+        echo $request->conID;
+    }
 }

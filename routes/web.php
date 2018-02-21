@@ -91,6 +91,8 @@ Route::group(['middleware' => 'auth'], function() {
 	
 });
 
+Route::post('/sendMessage', 'ProfileController@sendMessage');
+
 Route::get('/messages', function () {
 	/*$privateMsgs = DB::table('users')	
     	->where('id', '!=', Auth::user()->id)
