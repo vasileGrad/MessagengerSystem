@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/test', function () {
+    return Auth::user()->test();
+});
+
 Route::get('/test1', function () {
     $noti = DB::table('notifications')	
     	->where('user_logged', Auth::user()->id)
@@ -44,14 +48,10 @@ Route::get('/posts', function () {
 	$posts_json = DB::table('posts')
 		->leftJoin('profiles', 'profiles.user_id', 'posts.user_id')
 		->leftJoin('users', 'posts.user_id', 'users.id')
-		->orderBy('posts.created_at', 'desc')->take(3)
+		->orderBy('posts.created_at', 'desc')->take(2)
 		->get();
 
     return $posts_json;
-});
-
-Route::get('/test', function () {
-    return Auth::user()->test();
 });
 
 Route::post('addPost', 'PostController@addPost');
@@ -88,24 +88,25 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/notifications/{id}', 'ProfileController@notifications');
 	
 	Route::get('/unfriend/{id}', 'ProfileController@unfriend');
-		/*function ($id) {
-
-	    $loggedUser = Auth::user()->id;
-
-	    DB::table('friendships')
-	    ->where('requester', $id)
-	    ->where('user_requested', $loggedUser)
-	    ->delete();
-
-	    return back()->with('msg', 'You are not friend with this person');*/
-
-	Route::get('/messages2', function () {
-	    return view('messages.messages2');
-	});
+	
 });
 
+Route::get('/messages', function () {
+	/*$privateMsgs = DB::table('users')	
+    	->where('id', '!=', Auth::user()->id)
+    	->get();
 
-//Route::get('posts', 'HomeController@index');
+    return view('/messages', compact('privateMsgs'));*/
+	    return view('messages');
+	});
+
+Route::get('/getMessages', function () {
+    $allUsers = DB::table('users')	
+    	->where('id', '!=', Auth::user()->id)
+    	->get();
+
+    return $allUsers;
+});
 
 Route::get('logout', 'Auth\LoginController@logout');
 

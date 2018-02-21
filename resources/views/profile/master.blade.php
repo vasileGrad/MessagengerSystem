@@ -13,9 +13,85 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- Styles for Home page-->
+    <style>
+        .head_har{
+          background-color: #f6f7f9;
+          border-bottom: 1px solid #dddfe2;
+          border-radius: 2px 2px 0 0;
+          font-weight: bold;
+          padding: 8px 6px;
+        }
+        .left-sidebar, .right-sidebar{
+          background-color:#fff;
+          height:600px;
+        }
+        .posts_div{margin-bottom:10px !important;}
+        .posts_div h3{
+          margin-top:4px !important;
+        }
+        #postText{
+          border:none;
+          height:100px
+        }
+        .likeBtn{
+          color: #4b4f56; font-weight:bold; cursor: pointer;
+        }
+        .left-sidebar li { padding:10px;
+          border-bottom:1px solid #ddd;
+        list-style:none; margin-left:-20px}
+        .dropdown-menu{min-width:120px; left:-30px}
+        .dropdown-menu a{ cursor: pointer;}
+        .dropdown-divider {
+          height: 1px;
+          margin: .5rem 0;
+          overflow: hidden;
+          background-color: #eceeef;}
+          .user_name{font-size:18px;
+           font-weight:bold; text-transform:capitalize; margin:3px}
+          .all_posts{background-color:#fff; padding:5px;
+           margin-bottom:15px; border-radius:5px;
+            -webkit-box-shadow: 0 8px 6px -6px #666;
+            -moz-box-shadow: 0 8px 6px -6px #666;
+             box-shadow: 0 8px 6px -6px #666;}
+            #commentBox{
+              background-color:#ddd;
+              padding:10px;
+              width:99%; margin:0 auto;
+              background-color:#F6F7F9;
+              padding:10px;
+              margin-bottom:10px
+            }
+            #commentBox li { list-style:none; padding:10px; border-bottom:1px solid #ddd}
+            .commet_form{ padding:10px; margin-bottom:10px}
+            .commentHand{color:blue}
+            .commentHand:hover{cursor:pointer}
+            .upload_wrap{
+              position:relative;
+              display:inline-block;
+              width:100%
+            }
+            .center-con{
+              max-height:600px;
+              position: relative;
+              verflow-y: scroll;
+              /*left:calc(10%);
+              verflow-y: scroll;*/
+            }
+            @media (min-width: 268px) and (max-width: 768px) {
+              .center-con{
+                max-height:600px;
+                position: relative;
+                left:0px;
+                overflow-y: scroll;
+              }
+            }
+        </style>
+    </style>
 </head>
 <body>
-    <div id="app">
+    <div {{-- id="app" --}}>
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">

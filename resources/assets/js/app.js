@@ -42,6 +42,11 @@ const app = new Vue({
             }) 
             .then(function(response){
               console.log(response);
+              if(response.status===200) { // 200 - response is done
+                //alert('your post has beed added');
+                postText: '';
+                app.posts = response.data;
+              }
             })
             .catch(function(){
               console.log('FAILURE!!');

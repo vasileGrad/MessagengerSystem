@@ -1,18 +1,31 @@
+
 require('./bootstrap');
 
-const app = new Vue({
-    el: '#app',
-    data: {
-   msg: 'Click on user from left side 22222222222:',
-   content: '',
-   privsteMsgs: [],
-   singleMsgs: [],
-   msgFrom: '',
-   conID: '',
-   friend_id: '',
-   seen: false,
-   newMsgFrom: ''
+window.Vue = require('vue');
 
+window.VueRouter = require('vue-router').default;
+
+window.VueAxios = require('vue-axios').default;
+
+window.Axios = require('axios').default;
+
+Vue.use(VueRouter,VueAxios, axios);
+
+Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+const app = new Vue({
+  el: '#app',
+  data: {
+    msg: 'New Conversation: ',
+    content: '',
+    privateMsgs: []/*,
+    singleMsgs: [],
+    msgFrom: '',
+    conID: '',
+    friend_id: '',
+    seen: false,
+    newMsgFrom: ''
+*/
  },
 
  ready: function(){
@@ -21,20 +34,21 @@ const app = new Vue({
  },
 
  created(){
-   axios.get('http://localhost/larabook/index.php/getMessages')
+   axios.get('getMessages')
         .then(response => {
           console.log(response.data); // show if success
-          app.privsteMsgs = response.data; //we are putting data into our posts array
+          // privateMsgs comes from web.php - Route::get('/getMessages', function () {
+          // and goes up in the privateMsgs array
+          app.privateMsgs = response.data; //we are putting data into our posts array
         })
         .catch(function (error) {
           console.log(error); // run if we have error
         });
  },
 
-
  methods:{
-   messages: function(id){
-     axios.get('http://localhost/larabook/index.php/getMessages/' + id)
+   /*messages: function(id){
+     axios.get('getMessages/' + id)
           .then(response => {
             console.log(response.data); // show if success
            app.singleMsgs = response.data; //we are putting data into our posts array
@@ -53,7 +67,7 @@ const app = new Vue({
    },
    sendMsg(){
      if(this.msgFrom){
-       axios.post('http://localhost/larabook/index.php/sendMessage', {
+       axios.post('sendMessage', {
               conID: this.conID,
               msg: this.msgFrom
             })
@@ -75,7 +89,7 @@ const app = new Vue({
      app.friend_id = id;
    },
    sendNewMsg(){
-     axios.post('http://localhost/larabook/index.php/sendNewMessage', {
+     axios.post('sendNewMessage', {
             friend_id: this.friend_id,
             msg: this.newMsgFrom,
           })
@@ -91,7 +105,7 @@ const app = new Vue({
             console.log(error); // run if we have error
           });
    }
-
+*/
  }
 
 });
