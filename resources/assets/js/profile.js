@@ -19,8 +19,8 @@ const app = new Vue({
     msg: 'New Conversation: ',
     content: '',
     privateMsgs: [],
-    singleMsgs: []/*,,
-    msgFrom: '',
+    singleMsgs: [],
+    msgFrom: ''/*,
     conID: '',
     friend_id: '',
     seen: false,
@@ -60,15 +60,17 @@ const app = new Vue({
           });
    },
 
-  /* inputHandler(e){
-     if(e.keyCode ===13 && !e.shiftKey){
+   inputHandler(e){
+    // if Enter key was pressed and not shiftKey (new line)
+     if(e.keyCode === 13 && !e.shiftKey){
        e.preventDefault();
        this.sendMsg();
      }
    },
    sendMsg(){
      if(this.msgFrom){
-       axios.post('sendMessage', {
+      alert('form submit');
+       /*axios.post('sendMessage', {
               conID: this.conID,
               msg: this.msgFrom
             })
@@ -82,11 +84,11 @@ const app = new Vue({
             .catch(function (error) {
               console.log(error); // run if we have error
             });
-
+*/
      }
    },
 
-   friendID: function(id){
+  /* friendID: function(id){
      app.friend_id = id;
    },
    sendNewMsg(){

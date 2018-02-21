@@ -101,16 +101,27 @@ Route::get('/messages', function () {
 	});
 
 Route::get('/getMessages', function () {
-    $allUsers = DB::table('users')	
-    	->where('id', '!=', Auth::user()->id)
+	// the persons who sent me messages
+    $allUsers1 = DB::table('users')	
+    	->Join('conversations', 'users.id', 'conversations.user_one')
+    	->where('conversations.user_two', Auth::user()->id)
     	->get();
+    //return $allUsers;
 
-    return $allUsers;
+    // the persons to whom I have sent the messages
+    $allUsers2 = DB::table('users')	
+    	->Join('conversations', 'users.id', 'conversations.user_two')
+    	->where('conversations.user_one', Auth::user()->id)
+    	->get();
+    //dd($allUsers2);
+
+    // combine all the users
+    return array_merge($allUsers1->toArray(), $allUsers2->toArray());
 });
 
 Route::get('/getMessages/{id}', function ($id) {
     // check Conversation
-    $checkCon = DB::table('conversations')->where('user_one', Auth::user()->id)
+    /*$checkCon = DB::table('conversations')->where('user_one', Auth::user()->id)
     	->where('user_two', $id)->get();
     if(count($checkCon)!=0){
     	//echo $checkCon[0]->id;
@@ -119,7 +130,11 @@ Route::get('/getMessages/{id}', function ($id) {
     	return $userMsg;
     }else{
     	echo "no messages";
-    }
+    }*/
+    $userMsg = DB::table('messages')
+    	->join('users', 'users.id', 'messages.user_from')
+    	->where('messages.conversation_id', $id)->get();
+    return $userMsg;
 });
 
 Route::get('logout', 'Auth\LoginController@logout');
