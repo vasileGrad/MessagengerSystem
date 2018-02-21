@@ -9,12 +9,12 @@
 
         <div class="col-md-12" id="app">
 
-            <div class="col-md-2 left-sidebar">
+            <div class="col-md-3 left-sidebar">
                 <h3 align="center">Left Sidebar</h3>
                 <hr>
             </div>
 
-            <div class="col-md-7 center-con">
+            <div class="col-md-6 center-con">
             @if(Auth::check())
                 <div class="posts_div">
                     <div class="head_har" >
@@ -23,9 +23,9 @@
                     <div style="background-color:#fff">
                         <div class="row">
                             <div class="col-md-1 pull-left">
-                                <img src="../img/{{Auth::user()->picture}}" style="width:50px; margin:10px" class="img-rounded">
+                                <img src="../img/{{Auth::user()->picture}}" style="width:60px; margin:10px" class="img-rounded">
                             </div>
-                            <div class="col-md-11 pull-right">
+                            <div class="col-md-10 pull-right">
                                 <form method="post" enctype="multipart/form-data" v-on:submit.prevent="addPost"><br>
                                     <textarea class="form-control" v-model="content" id="postText" placeholder="What's on your mind?"></textarea><br>
                                     <button type="submit" class="btn btn-info pull-right" style="margin:10px" id="postBtn">Post</button><br>

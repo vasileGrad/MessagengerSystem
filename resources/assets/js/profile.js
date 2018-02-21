@@ -18,8 +18,8 @@ const app = new Vue({
   data: {
     msg: 'New Conversation: ',
     content: '',
-    privateMsgs: []/*,
-    singleMsgs: [],
+    privateMsgs: [],
+    singleMsgs: []/*,,
     msgFrom: '',
     conID: '',
     friend_id: '',
@@ -47,19 +47,20 @@ const app = new Vue({
  },
 
  methods:{
-   /*messages: function(id){
+   messages: function(id){
      axios.get('getMessages/' + id)
+          //alert(id);
           .then(response => {
             console.log(response.data); // show if success
            app.singleMsgs = response.data; //we are putting data into our posts array
-           app.conID = response.data[0].conversation_id
+           //app.conID = response.data[0].conversation_id
           })
           .catch(function (error) {
             console.log(error); // run if we have error
           });
    },
 
-   inputHandler(e){
+  /* inputHandler(e){
      if(e.keyCode ===13 && !e.shiftKey){
        e.preventDefault();
        this.sendMsg();

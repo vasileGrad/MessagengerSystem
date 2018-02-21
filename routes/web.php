@@ -73,7 +73,7 @@ Route::group(['middleware' => 'auth'], function() {
 	
 	Route::get('/findFriends', 'ProfileController@findFriends');
 
-	Route::get('editProfile', 'ProfileController@editProfileForm');
+	Route::get('/editProfile', 'ProfileController@editProfileForm');
 
 	Route::get('/addFriend/{id}', 'ProfileController@sendRequest');
 
@@ -106,6 +106,20 @@ Route::get('/getMessages', function () {
     	->get();
 
     return $allUsers;
+});
+
+Route::get('/getMessages/{id}', function ($id) {
+    // check Conversation
+    $checkCon = DB::table('conversations')->where('user_one', Auth::user()->id)
+    	->where('user_two', $id)->get();
+    if(count($checkCon)!=0){
+    	//echo $checkCon[0]->id;
+    	// fetch msgs
+    	$userMsg = DB::table('messages')->where('messages.conversation_id', $checkCon[0]->id)->get();
+    	return $userMsg;
+    }else{
+    	echo "no messages";
+    }
 });
 
 Route::get('logout', 'Auth\LoginController@logout');

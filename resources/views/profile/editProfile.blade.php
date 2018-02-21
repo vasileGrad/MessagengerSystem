@@ -21,7 +21,7 @@
                          <img src="../img/{{Auth::user()->picture}}" style="border-radius: 50%; height:120px; width:120px;"/><br><br>
                          <div class="caption">
                            <p align="center"></p>
-                           <p align="center"><a href="{{url('/editProfile')}}" class="btn btn-primary" role="button">Edit Profile</a>
+                           <p align="center"><a href="{{url('/changePhoto')}}" class="btn btn-primary" role="button">Change Image</a>
                         </div>
                     </div>
                 </div>
