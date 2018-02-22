@@ -5,7 +5,8 @@
 <div class="col-md-12">
     <div class="row">
     	<div class="col-sm-3" style="background-color: #fff">
-    		<h3 align="center">Click on user</h3>
+    		<h3 align="center">Messenger <abbr title="Create New Conversation"><a href="#"><i class="glyphicon glyphicon-edit pull-right"></i></a></abbr></h3>
+
             <ul v-for="privateMsg in privateMsgs">
                 <li @click="messages(privateMsg.id)" style="list-style:none; margin:10px 0px 0px -40px; background-color:#F3F3F3" class="row">
                     <div class="col-md-3 pull-left">
@@ -22,10 +23,12 @@
 
     	<div style="background-color: #fff; min-height: 600px; border-left:5px solid #F5F8FA" class="col-sm-6">
     		<h3 align="center">Messages</h3>
-            <div v-for="singleMsg in singleMsgs">
+
+            <div id="myScroll" style="overflow-y:scroll; overflow-x:hidden; height:410px; background:#fcfcfc; overflow:auto;">
+                <div v-for="singleMsg in singleMsgs">
                 <div v-if="singleMsg.user_from == <?php echo Auth::user()->id; ?>">
 
-                    <div class="col-md-12" style="margin-top:10px">
+                    <div class="col-md-12" style="margin-top:10px; margin-bottom: 10px">
                         <img :src="'../img/' + singleMsg.picture" style="width:34px; border-radius:50%; margin-left:5px" class="pull-right"/>
                         <div style="float:right; background-color:#0084ff; padding:5px 15px 5px 15px; margin-right:10px; color:#333; border-radius:10px; color:#fff;">
                              @{{singleMsg.msg}}
@@ -34,7 +37,7 @@
                 </div>
 
                 <div v-else=>
-                    <div class="col-md-12 pull-right" style="margin-top:10px">
+                    <div class="col-md-12 pull-right" style="margin-top:10px; margin-bottom: 10px">
                         <img :src="'../img/' + singleMsg.picture" style="width:34px; border-radius:50%" class="pull-left"/>
                         <div style="float:left; background-color:#F0F0F0; padding: 5px 15px 5px 15px; border-radius:10px; text-align:right; margin-left: 15px;">
                         @{{singleMsg.msg}}
@@ -42,12 +45,13 @@
                         
                     </div>
                 </div>
+            </div>
+            <hr>
 
             </div>
-    		<hr>
-
-            <input type="text" v-model="conID">
-            <textarea class="col-md-12 form-control" v-model="msgFrom" @keydown="inputHandler" style="margin-top:15px; border:none"></textarea>
+            
+            <input type="hidden" v-model="conID">
+            <textarea class="col-md-12 form-control" placeholder="Type a message..." v-model="msgFrom" @keydown="inputHandler" style="margin-top:15px; border:none"></textarea>
     	</div>
 
     	<div class="col-sm-3" style="background-color: #fff">
@@ -59,3 +63,16 @@
     </div>
 </div>
 @endsection
+
+{{-- <script>
+    $(document).ready(function() {
+        var interval = setInterval(function() {
+            $.ajax({
+                url: 'getMessages',
+                success: function(data) {
+                    $('#myScroll').html(data);
+                }
+            });
+        }, 1000);
+    });
+</script> --}}

@@ -170,6 +170,32 @@ class ProfileController extends Controller
     }
 
     public function sendMessage(Request $request) {
-        echo $request->conID;
+        $conID = $request->conID;
+        $msg = $request->msg;
+
+        // fetch user_to
+        $fetch_userTo = DB::table('messages')->where('conversation_id', $conID)
+            ->where('user_to', '!=', Auth::user()->id)
+            ->get();
+
+        $user_to = $fetch_userTo[0]->user_to;
+
+        // now send message
+        $sendM = DB::table('messages')->insert([
+            'user_to'         => $user_to,
+            'user_from'       => Auth::user()->id,
+            'msg'             => $msg,
+            'status'          => 1,
+            'conversation_id' => $conID
+        ]);
+
+        if($sendM){
+            $userMsg = DB::table('messages')
+                ->join('users', 'users.id', 'messages.user_from')
+                ->where('messages.conversation_id', $conID)->get();
+            return $userMsg;
+        }else{
+            echo 'not sent';
+        }
     }
 }

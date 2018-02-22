@@ -12,7 +12,27 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    {{-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> --}}
+
+    <style>
+        /* Scrollbar styles for Messenger*/
+        #myScroll::-webkit-scrollbar {
+            width: 15px;
+            height: 15px;
+        }
+        #myScroll::-webkit-scrollbar-track {
+            border: 1px solid #a4a4a5;
+            border-radius: 2px;
+        }
+        #myScroll::-webkit-scrollbar-thumb {
+            background: gray;  
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        #myScroll::-webkit-scrollbar-thumb:hover {
+            background: #b1b2b5; 
+    </style>
+
 </head>
 <body>
     <div id="app">
@@ -52,7 +72,8 @@
                         @else
                             <li><a href="{{ url('messages') }}">Messages</a></li>
 
-                            <li><a href="">
+                            <li style="height:10px">
+                                <a href="">
                                     <img src="/img/{{Auth::user()->picture}}" style="border-radius: 50%" height="40px" width="40px"/><br><br>
                                 </a>
                             </li>
@@ -81,13 +102,13 @@
                             </li>
 
                             <li>
-                                <a href="{{ url('/friends')}}"><i class="fa fa-users fa-2x" aria-hidden="true"></i></a>
+                                <a href="{{ url('/friends')}}"><span><i class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:30px; position:absolute; right:-2px; margin-top:8px"></i><i class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:30px;"></i></span></a>
                             </li>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
-                                    <span class="badge" style="background:red; position: relative; top: -10px; left:-10px">
+                                    <i class="glyphicon glyphicon-globe" aria-hidden="true" style="font-size:30px;"></i>
+                                    <span class="badge" style="background:red; position: relative; top: -20px; left:-10px">
                                         {{App\Notification::where('status', 1)  ->where('user_hero', Auth::user()->id)->count()}}
                                     </span>
                                 </a>

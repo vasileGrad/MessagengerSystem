@@ -12,7 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    {{-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> --}}
 
     <!-- Styles for Home page-->
     <style>
@@ -128,8 +129,9 @@
                         @else
                             <li><a href="{{ url('messages') }}">Messages</a></li>
                             
-                            <li><a href="">
-                                    <img src="/img/{{Auth::user()->picture}}" style="border-radius: 50%" height="40px" width="40px"/><br><br>
+                            <li style="height:10px">
+                                <a href="">
+                                  <img src="/img/{{Auth::user()->picture}}" style="border-radius:50%; width:30px;"/><br><br>
                                 </a>
                             </li>
 
@@ -157,13 +159,13 @@
                             </li>
 
                             <li>
-                                <a href="{{ url('/friends')}}"><i class="fa fa-users fa-2x" aria-hidden="true"></i></a>
+                                <a href="{{ url('/friends')}}"><span><i class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:30px; position:absolute; right:-2px; margin-top:8px"></i><i class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:30px;"></i></span></a>
                             </li>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
-                                    <span class="badge" style="background:red; position: relative; top: -10px; left:-10px">
+                                    <i class="glyphicon glyphicon-globe" aria-hidden="true" style="font-size:30px;"></i>
+                                    <span class="badge" style="background:red; position: relative; top: -20px; left:-10px">
                                         {{App\Notification::where('status', 1)  ->where('user_hero', Auth::user()->id)->count()}}
                                     </span>
                                 </a>

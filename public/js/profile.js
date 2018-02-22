@@ -45776,7 +45776,8 @@ var app = new Vue({
     privateMsgs: [],
     singleMsgs: [],
     msgFrom: '',
-    conID: '' /*,,
+    conID: '',
+    timer: '' /*,,
               friend_id: '',
               seen: false,
               newMsgFrom: ''
@@ -45785,9 +45786,14 @@ var app = new Vue({
 
   ready: function ready() {
     this.created();
+    //this.myTimer();
+    /*this.created2();
+    setInterval(this.created2(), 1000);*/
+    //setInterval(this.myTimer, 1000);
+    //setInterval(refreshMessages(this.conID), 1000);
   },
-
   created: function created() {
+    //console.log('createdddddd');
     axios.get('getMessages').then(function (response) {
       console.log(response.data); // show if success
       // privateMsgs comes from web.php - Route::get('/getMessages', function () {
@@ -45800,12 +45806,30 @@ var app = new Vue({
 
 
   methods: {
+
+    myTimer: function myTimer() {
+      console.log('aloooooooo');
+    },
+
     messages: function messages(id) {
       axios.get('getMessages/' + id)
       //alert(id);
       .then(function (response) {
         console.log(response.data); // show if success
         app.singleMsgs = response.data; //we are putting data into our posts array
+        app.conID = response.data[0].conversation_id;
+      }).catch(function (error) {
+        console.log(error); // run if we have error
+      });
+    },
+
+    refreshMessages: function refreshMessages(id) {
+      axios.get('getMessages/' + id)
+      //alert(id);
+      .then(function (response) {
+        console.log(response.data); // show if success
+        app.singleMsgs = response.data; //we are putting data into our posts array
+        console.log('yepppp');
         app.conID = response.data[0].conversation_id;
       }).catch(function (error) {
         console.log(error); // run if we have error
@@ -45821,19 +45845,23 @@ var app = new Vue({
     },
     sendMsg: function sendMsg() {
       if (this.msgFrom) {
-        /*alert(this.conID);
-        alert(this.msgFrom);*/
+        //alert(this.conID);
+        //alert(this.msgFrom);
         axios.post('sendMessage', {
           conID: this.conID,
           msg: this.msgFrom
         }).then(function (response) {
           console.log(response.data); // show if success
-          /*if(response.status===200){
+          // Refresh the page if success
+          if (response.status === 200) {
             app.singleMsgs = response.data;
-          }*/
+          }
         }).catch(function (error) {
           console.log(error); // run if we have error
         });
+        this.msgFrom = "";
+        //setInterval(refreshMessages(this.conID), 1000);
+        this.refreshMessages(this.conID);
       }
     }
   }

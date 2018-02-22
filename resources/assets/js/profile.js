@@ -21,7 +21,8 @@ const app = new Vue({
     privateMsgs: [],
     singleMsgs: [],
     msgFrom: '',
-    conID: ''/*,,
+    conID: '',
+    timer: ''/*,,
     friend_id: '',
     seen: false,
     newMsgFrom: ''
@@ -30,10 +31,14 @@ const app = new Vue({
 
  ready: function(){
    this.created();
-
+   //this.myTimer();
+   /*this.created2();
+   setInterval(this.created2(), 1000);*/
+   //setInterval(this.myTimer, 1000);
+   //setInterval(refreshMessages(this.conID), 1000);
  },
-
  created(){
+  //console.log('createdddddd');
    axios.get('getMessages')
         .then(response => {
           console.log(response.data); // show if success
@@ -47,6 +52,11 @@ const app = new Vue({
  },
 
  methods:{
+
+  myTimer: function(){
+    console.log('aloooooooo');
+  },
+
    messages: function(id){
      axios.get('getMessages/' + id)
           //alert(id);
@@ -60,6 +70,20 @@ const app = new Vue({
           });
    },
 
+   refreshMessages: function(id){
+     axios.get('getMessages/' + id)
+        //alert(id);
+        .then(response => {
+         console.log(response.data); // show if success
+         app.singleMsgs = response.data; //we are putting data into our posts array
+         console.log('yepppp');
+         app.conID = response.data[0].conversation_id
+        })
+        .catch(function (error) {
+          console.log(error); // run if we have error
+        });
+  },
+
    inputHandler(e){
     // if Enter key was pressed and not shiftKey (new line)
      if(e.keyCode === 13 && !e.shiftKey){
@@ -69,22 +93,26 @@ const app = new Vue({
    },
    sendMsg(){
      if(this.msgFrom){
-      /*alert(this.conID);
-      alert(this.msgFrom);*/
+      //alert(this.conID);
+      //alert(this.msgFrom);
        axios.post('sendMessage', {
           conID: this.conID,
           msg: this.msgFrom
         })
-        .then( (response) => {              
+        .then(function (response) {              
           console.log(response.data); // show if success
-          /*if(response.status===200){
+          // Refresh the page if success
+          if(response.status===200){
             app.singleMsgs = response.data;
-          }*/
+
+          }
         })
         .catch(function (error) {
           console.log(error); // run if we have error
         });
-
+      this.msgFrom = "";
+      //setInterval(refreshMessages(this.conID), 1000);
+      this.refreshMessages(this.conID);
      }
    },
 
